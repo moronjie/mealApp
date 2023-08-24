@@ -14,6 +14,8 @@ const AppProvider = ({children}) => {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
     const [searchMeal, setSearchMeal] = useState('')
+    const [showModel, setShowModel] = useState(false)
+    const [selectedMeal, setselectedMeal] = useState(null)
 
     const fetchData = async (url) => {
         setLoading(true)
@@ -30,15 +32,34 @@ const AppProvider = ({children}) => {
         }
        setLoading(false)
     }
-    
+
+    const closeModel = () => {
+        setShowModel(false)
+    }
+
+    const selectMeal = (id) => {
+        let clickedMeal 
+        clickedMeal = meal.find((singleMeal) => singleMeal.idMeal === id)
+        setselectedMeal(clickedMeal)
+        console.log(id);
+        setShowModel(true)
+    }
+    const fetchRandom = () => {
+        fetchData(randomMealUrl)
+    }
 
     useEffect(() => {
-        fetchData(`${allMealsUrl}${searchMeal}`)
+        fetchData(allMealsUrl)
     },[])
+
+    useEffect(() => {
+        if(!searchMeal) return
+        fetchData(`${allMealsUrl}${searchMeal}`)
+    },[searchMeal])
 
     
     return(
-        <AppContext.Provider value= {{meal, loading, error, setSearchMeal}}>
+        <AppContext.Provider value= {{meal, loading, error, setSearchMeal, fetchRandom, selectMeal, closeModel, selectedMeal, showModel}}>
             {children}
         </AppContext.Provider>
     )
