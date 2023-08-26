@@ -292,6 +292,44 @@ ul {
   text-decoration: underline;
   color: var(--black);
 }
+.favorites{
+  background-color: var(--black);
+  color: var(--white);
+  padding: 1rem 0;
+}
+.favorite-content{
+  width: var(--view-width);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding-bottom: 1rem;
+}
+.favorites-contaner{
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.favorite-item{
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: column;
+  text-align: center;
+}
+.favorite-item img{
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+.remove-btn{
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--white);
+  cursor: pointer;
+  transition: var(--transition);
+}
+.remove-btn:hover{
+  color: var(--red-dark);
+}
 @media screen and (min-width:776px) {
   .section-center{
     grid-template-columns: 1fr 1fr;

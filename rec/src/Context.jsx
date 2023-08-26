@@ -42,7 +42,6 @@ const AppProvider = ({children}) => {
             if(addedToFavorite) return 
 
             setFavoratesMeals([...favoriteMeals, singleMeal])
-            console.log(favoriteMeals);
         } catch (error){
             console.log(error.message)
         }
@@ -62,7 +61,6 @@ const AppProvider = ({children}) => {
         let clickedMeal 
         clickedMeal = meal.find((singleMeal) => singleMeal.idMeal === id)
         setselectedMeal(clickedMeal)
-        console.log(id);
         setShowModel(true)
     }
     const fetchRandom = () => {
