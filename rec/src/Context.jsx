@@ -16,6 +16,7 @@ const AppProvider = ({children}) => {
     const [searchMeal, setSearchMeal] = useState('')
     const [showModel, setShowModel] = useState(false)
     const [selectedMeal, setselectedMeal] = useState(null)
+    const [favoriteMeals, setFavoratesMeals] = useState([])
 
     const fetchData = async (url) => {
         setLoading(true)
@@ -31,6 +32,26 @@ const AppProvider = ({children}) => {
             setError(true)
         }
        setLoading(false)
+    }
+
+
+    const addToFavorite = (id) => {
+        try {
+            const singleMeal = meal.find((singlemeal) => singlemeal.idMeal === id)
+            const addedToFavorite = favoriteMeals.find((favorateMeal) => {return favorateMeal.idMeal === singleMeal.idMeal})
+            if(addedToFavorite) return 
+
+            setFavoratesMeals([...favoriteMeals, singleMeal])
+            console.log(favoriteMeals);
+        } catch (error){
+            console.log(error.message)
+        }
+    }
+    const removeFromFavorite = (id) => {
+        const filterFavorite = favoriteMeals.filter((favorateMeal) => {
+            return favorateMeal.idMeal !== id
+        })
+        setFavoratesMeals(filterFavorite)
     }
 
     const closeModel = () => {
@@ -59,7 +80,7 @@ const AppProvider = ({children}) => {
 
     
     return(
-        <AppContext.Provider value= {{meal, loading, error, setSearchMeal, fetchRandom, selectMeal, closeModel, selectedMeal, showModel}}>
+        <AppContext.Provider value= {{meal, loading, error, setSearchMeal, fetchRandom, selectMeal, closeModel, selectedMeal, showModel, addToFavorite, favoriteMeals, removeFromFavorite}}>
             {children}
         </AppContext.Provider>
     )
